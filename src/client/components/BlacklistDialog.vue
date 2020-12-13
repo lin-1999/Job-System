@@ -12,9 +12,7 @@ v-dialog(fullscreen, :value="value")
                 v-expansion-panel-content
                     v-card-actions
                         v-spacer
-                        v-btn(
-                            color="error",
-                            @click="unBlock") 移除
+                        v-btn(color="error") 移除
 
         v-btn(fixed, bottom, right, fab, dark, color="red", @click="")
             v-icon mdi-cancel
@@ -30,20 +28,16 @@ export default class extends Vue {
 
     list: any[] = []
 
-    changeValue(v: boolean) {
+    changeValue (v: boolean) {
         this.$emit('input', v)
     }
 
-    mounted() {
+    mounted () {
         for (let i = 0; i < 5; i++) {
             this.list.push({
                 name: '文子他媽'
             })
         }
-    }
-
-    async unblock() {
-        //
     }
 }
 </script>
