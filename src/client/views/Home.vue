@@ -50,9 +50,9 @@ v-card(tile, height="100%")
                                 | ({{ typeValue.length }})
 
             v-row
-                v-col
+                v-col.pa-0
                     v-card
-                        JobList(:items="jobs", height="calc(100vh - 400px)")
+                        JobList(:items="jobs", height="calc(100vh - 350px)")
 </template>
 
 <script lang="ts">
@@ -76,8 +76,14 @@ export default class extends Vue {
 
     jobs: any[] = []
 
+    async loadJobs() {
+        let { status, data } = await axios.get('/api/job', { params: { type: 'all' } })
+        if (status === 200)
+            this.jobs = data
+    }
+
     mounted() {
-        
+        this.loadJobs()
     }
 }
 </script>
