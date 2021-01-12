@@ -36,7 +36,7 @@ router.get('/', auth, async(req, res) => {
             data[f] = account[f]
         }
     } else {
-        Object.assign(data, (<any>req.account)._doc)
+        Object.assign(data, req.account)
     }
 
     delete data.hash
@@ -118,7 +118,7 @@ router.post('/link-ntou', auth, required('ntouID', 'ntouPW'), async(req, res) =>
 router.post('/sentMail', async(req, res) =>  {
     console.log(req.params.resetEmail, req.body.resetEmail)
     const Res = await AccountBackend.getVerCode(req.body.resetEmail)
-    res.status(200).json()
+    res.status(Res).json()
 })
 
 router.post('/checkVerCode', async(req, res) =>  {
@@ -128,7 +128,7 @@ router.post('/checkVerCode', async(req, res) =>  {
 
 router.post('/resetPwd', async(req, res) =>  {
     const Res = await AccountBackend.resetPassword(req.body.resetEmail,req.body.newHash)
-    res.status(200).json()
+    res.status(Res).json()
 })
 
 export default router
