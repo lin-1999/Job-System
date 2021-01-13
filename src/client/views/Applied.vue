@@ -52,19 +52,9 @@ import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { sendMessage } from '@/client/sysmsg'
 import { IAccount, IApplyment, IJob } from '@/server/models'
+import { ApplymentState as State } from '@/server/enums'
 
 const Account = namespace('Account')
-
-enum State {
-    Pending = 0, // 初始狀態，等待刊登者回應
-    Accepted, // 刊登者接受
-    Confirmed, // 申請人確認,
-
-    // 結束狀態
-    Abandoned, // 申請人放棄
-    Rejected, // 刊登者拒絕
-    Finished // 完成
-}
 
 @Component
 export default class extends Vue {
@@ -79,11 +69,11 @@ export default class extends Vue {
             case State.Accepted:
                 return 'light-blue'
             case State.Rejected:
-                return 'green'
-            case State.Confirmed:
                 return 'red'
             case State.Abandoned:
                 return 'red'
+            case State.Confirmed:
+                return 'green'
         }
     }
 
@@ -95,10 +85,10 @@ export default class extends Vue {
                 return '雇主已接受'
             case State.Rejected:
                 return '雇主已拒絕'
-            case State.Confirmed:
-                return '已確認'
             case State.Abandoned:
                 return '已放棄'
+            case State.Confirmed:
+                return '已確認'
         }
     }
 
