@@ -69,11 +69,11 @@ export default class extends Vue {
 
     async resetPwd() {
         const newHash = sha256(this.newPwd).toString()
-        const email = this.$route.params.email
-        console.log("reserEmail = " + email)
+        const resetEmail = this.$route.params.email
+        //console.log("reserEmail = " + email)
         
         this.loading = true
-        const { status, data } = await axios.post('/api/account/resetPwd', { email, newHash })
+        const { status, data } = await axios.post('/api/account/resetPwd', { resetEmail, newHash })
         this.loading = false
 
         switch (status) {
